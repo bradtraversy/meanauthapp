@@ -14,7 +14,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
-        this.isDev = false;
+        this.isDev = true;
     }
     AuthService.prototype.registerUser = function (user) {
         var headers = new Headers();
