@@ -716,26 +716,14 @@ var AuthService = (function () {
     AuthService.prototype.registerUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        var ep;
-        if (this.isDev) {
-            ep = 'http://localhost:8080/users/register';
-        }
-        else {
-            ep = 'users/register';
-        }
+        var ep = this.prepEndpoint('users/register');
         return this.http.post(ep, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["Headers"]();
         headers.append('Content-Type', 'application/json');
-        var ep;
-        if (this.isDev) {
-            ep = 'http://localhost:8080/users/authenticate';
-        }
-        else {
-            ep = 'users/authenticate';
-        }
+        var ep = this.prepEndpoint('users/authenticate');
         return this.http.post(ep, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -744,13 +732,7 @@ var AuthService = (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        var ep;
-        if (this.isDev) {
-            ep = 'http://localhost:8080/users/profile';
-        }
-        else {
-            ep = 'users/profile';
-        }
+        var ep = this.prepEndpoint('users/profile');
         return this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
     };
@@ -771,6 +753,14 @@ var AuthService = (function () {
         this.authToken = null;
         this.user = null;
         localStorage.clear();
+    };
+    AuthService.prototype.prepEndpoint = function (ep) {
+        if (this.isDev) {
+            return ep;
+        }
+        else {
+            return 'http://localhost:8080/' + ep;
+        }
     };
     AuthService = __decorate([
         __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(), 
