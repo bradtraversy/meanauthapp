@@ -7,20 +7,35 @@ import {tokenNotExpired} from 'angular2-jwt';
 export class AuthService {
   authToken: any;
   user: any;
+  isDev:boolean;
 
-  constructor(private http:Http) { }
+  constructor(private http:Http) {
+    this.isDev = false; // Change to false before deployment
+  }
 
   registerUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/register', user,{headers: headers})
+    let ep;
+    if(this.isDev){
+      ep = 'http://localhost:8080/users/register';
+    } else {
+      ep = 'users/register';
+    }
+    return this.http.post(ep, user,{headers: headers})
       .map(res => res.json());
   }
 
   authenticateUser(user){
     let headers = new Headers();
     headers.append('Content-Type','application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user,{headers: headers})
+    let ep;
+    if(this.isDev){
+      ep = 'http://localhost:8080/users/authenticate';
+    } else {
+      ep = 'users/authenticate';
+    }
+    return this.http.post(ep, user,{headers: headers})
       .map(res => res.json());
   }
 
@@ -29,7 +44,13 @@ export class AuthService {
     this.loadToken();
     headers.append('Authorization', this.authToken);
     headers.append('Content-Type','application/json');
-    return this.http.get('http://localhost:3000/users/profile',{headers: headers})
+    let ep;
+    if(this.isDev){
+      ep = 'http://localhost:8080/users/profile';
+    } else {
+      ep = 'users/profile';
+    }
+    return this.http.get(ep,{headers: headers})
       .map(res => res.json());
   }
 

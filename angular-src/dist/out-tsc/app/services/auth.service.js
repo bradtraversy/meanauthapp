@@ -14,17 +14,32 @@ import { tokenNotExpired } from 'angular2-jwt';
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
+        this.isDev = false;
     }
     AuthService.prototype.registerUser = function (user) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/register', user, { headers: headers })
+        var ep;
+        if (this.isDev) {
+            ep = 'http://localhost:8080/users/register';
+        }
+        else {
+            ep = 'users/register';
+        }
+        return this.http.post(ep, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.authenticateUser = function (user) {
         var headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        return this.http.post('http://localhost:3000/users/authenticate', user, { headers: headers })
+        var ep;
+        if (this.isDev) {
+            ep = 'http://localhost:8080/users/authenticate';
+        }
+        else {
+            ep = 'users/authenticate';
+        }
+        return this.http.post(ep, user, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.getProfile = function () {
@@ -32,7 +47,14 @@ var AuthService = (function () {
         this.loadToken();
         headers.append('Authorization', this.authToken);
         headers.append('Content-Type', 'application/json');
-        return this.http.get('http://localhost:3000/users/profile', { headers: headers })
+        var ep;
+        if (this.isDev) {
+            ep = 'http://localhost:8080/users/profile';
+        }
+        else {
+            ep = 'users/profile';
+        }
+        return this.http.get(ep, { headers: headers })
             .map(function (res) { return res.json(); });
     };
     AuthService.prototype.storeUserData = function (token, user) {
