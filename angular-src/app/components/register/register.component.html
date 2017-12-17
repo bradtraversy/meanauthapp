@@ -1,0 +1,23 @@
+<div>
+<h2 class="page-header">Register</h2>
+<form (submit)="onRegisterSubmit()" >
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input type="text" [(ngModel)]="name" name="name" class="form-control" id="name" placeholder="Enter Name">
+  </div>
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input type="text" [(ngModel)]="username" name="username" class="form-control" id="username" placeholder="Enter Username">
+  </div>
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input type="email" [(ngModel)]="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter Email">
+    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" [(ngModel)]="password" name="password" class="form-control" id="password" placeholder=" Enter Password">
+  </div>
+  <input type="submit" class="btn btn-primary" value="Submit">
+</form>
+</div>
