@@ -21,4 +21,4 @@ Run app
 $ npm start
 ```
 
-### Screenshots in Wiki: https://github.com/tomcatbuzz/meanauthapp.wiki.git
+### Screenshots in Wiki: https://github.com/tomcatbuzz/meanauthapp/wiki
