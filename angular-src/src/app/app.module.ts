@@ -12,10 +12,10 @@ import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
 
-import {ValidateService} from './services/validate.service';
-import {AuthService} from './services/auth.service';
-import {FlashMessagesModule} from 'angular2-flash-messages';
-import {AuthGuard} from './guards/auth.guard';
+import { ValidateService } from './services/validate.service';
+import { AuthService } from './services/auth.service';
+import { FlashMessagesModule } from 'angular2-flash-messages';
+import { AuthGuard } from './guards/auth.guard';
 
 const appRoutes: Routes =  [
   {path:'', component: HomeComponent},
@@ -40,7 +40,7 @@ const appRoutes: Routes =  [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule.forRoot()
   ],
   providers: [ValidateService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
