@@ -6,17 +6,27 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database');
 
-// Connect To Database
-mongoose.connect(config.database);
+// Connect To Database (NEW) But not working!!!!!!!!!! (because of secret in db.js!!!!!)
+//const db = require('./config/database');
+// Map global promise - get rid of warning
+//mongoose.Promise = global.Promise;
+// Connect to mongoose
+//mongoose.connect(db.mongoURI, {
+    //useMongoClient: true
+//})
+//.then(() => console.log('MongoDB Connected...'))
+//.catch(err => console.log(err));
 
+
+// Connect To Database (OLD CODE)
+mongoose.connect(config.database, { useMongoClient: true});
 // On Connection
 mongoose.connection.on('connected', () => {
-  console.log('Connected to database '+config.database);
+  console.log('Connected to Database '+config.database);
 });
-
 // On Error
 mongoose.connection.on('error', (err) => {
-  console.log('Database error: '+err);
+  console.log('Database error '+err);
 });
 
 const app = express();
@@ -45,7 +55,7 @@ app.use('/users', users);
 
 // Index Route
 app.get('/', (req, res) => {
-  res.send('Invalid Endpoint');
+  res.send('invaild endpoint');
 });
 
 app.get('*', (req, res) => {
